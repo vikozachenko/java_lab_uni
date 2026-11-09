@@ -1,0 +1,48 @@
+
+package workshop.task_2_2;
+
+import org.junit.Assert;
+import org.junit.Test;
+
+import java.util.Arrays;
+import java.util.List;
+import java.util.function.Predicate;
+import java.util.stream.Collectors;
+
+public class Exercise1SuppliersTest extends CompanyDomain {
+
+    @Test
+    public void findSupplierNames() {
+        List<String> supplierNames = Arrays.stream(company.getSuppliers())
+                .map(Supplier::getName)
+                .collect(Collectors.toList());
+
+        List<String> expectedSupplierNames = Arrays.asList(
+                "Shedtastic",
+                "Splendid Crocks",
+                "Annoying Pets",
+                "Gnomes 'R' Us",
+                "Furniture Hamlet",
+                "SFD",
+                "Doxins"
+        );
+
+        Assert.assertEquals(expectedSupplierNames, supplierNames);
+    }
+
+    @Test
+    public void countSuppliersWithMoreThanTwoItems() {
+        Predicate<Supplier> moreThanTwoItems =
+                supplier -> supplier.getItemNames().length > 2;
+
+        int suppliersWithMoreThanTwoItems = (int) Arrays.stream(company.getSuppliers())
+                .filter(moreThanTwoItems)
+                .count();
+
+        Assert.assertEquals(
+                "suppliers with more than 2 items",
+                5,
+                suppliersWithMoreThanTwoItems
+        );
+    }
+}
