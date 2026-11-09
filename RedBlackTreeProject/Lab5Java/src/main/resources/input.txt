@@ -1,0 +1,4 @@
+Java is a programming language
+Files allow us to store data
+Hello Java
+Working with files is important in Java programming
